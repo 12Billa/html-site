@@ -1,80 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Doctor Appointment System</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Cloud Hub 🌐</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body, html { height: 100%; overflow-x: hidden; }
+
+    /* Animated AI Background */
     body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(to right, #89f7fe, #66a6ff);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+      background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      scroll-behavior: smooth;
     }
 
-    .container {
-        background: white;
-        padding: 25px;
-        width: 400px;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    canvas {
+      position: fixed;
+      top:0; left:0;
+      z-index: -1;
     }
 
-    input, button {
-        width: 100%;
-        padding: 10px;
-        margin-top: 12px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 14px;
+    header {
+      text-align: center;
+      padding: 80px 20px 40px 20px;
     }
 
-    button {
-        background: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
+    header h1 {
+      font-size: 3rem;
+      color: #00ffe0;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00ffe0;
     }
 
-    button:hover { background: #45a049; }
-
-    .result {
-        background: #f2f2f2;
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 15px;
-        font-size: 14px;
-        line-height: 1.5;
+    header p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      color: #ccc;
     }
-</style>
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #00ffe0;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #00ffe0;
+      text-shadow: 0 0 5px #00ffe0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,255,224,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 0 40px rgba(0,255,224,0.6);
+    }
+
+    .card h3 {
+      color: #00ffe0;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #00ffe0;
+      color: #000;
+      padding: 12px 30px;
+      border-radius: 30px;
+      margin-top: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00c8b0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+      header h1 { font-size: 2rem; }
+      .section-title { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h2>AI Doctor Appointment System</h2>
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="number" name="age" placeholder="Your Age" required>
-        <input type="text" name="symptom" placeholder="Your Symptom (fever, cough…)" required>
-        <button type="submit">Get Doctor & Appointment</button>
-    </form>
 
-    {% if result %}
-    <div class="result">
-        <b>Recommended Doctor:</b> {{ doctor }}<br>
-        <b>Patient Name:</b> {{ name }}<br>
-        <b>Age:</b> {{ age }}<br>
-        <b>Symptom:</b> {{ symptom }}<br>
-        <b>Appointment Date:</b> {{ date }}<br>
-        <b>Appointment Time:</b> {{ time }}<br>
-        ✅ Appointment Fixed Successfully
+  <!-- Animated Background Canvas -->
+  <canvas id="aiCanvas"></canvas>
+
+  <!-- Header -->
+  <header>
+    <h1>AI & Cloud Hub 🌐</h1>
+    <p>Explore AI, Cloud Computing & Smart Automation</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#ai">AI</a>
+    <a href="#cloud">Cloud</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- AI Section -->
+  <section id="ai">
+    <div class="section-title">Artificial Intelligence</div>
+    <div class="cards">
+      <div class="card">
+        <h3>Machine Learning</h3>
+        <p>Build intelligent systems that learn and adapt automatically.</p>
+      </div>
+      <div class="card">
+        <h3>AI Chatbots</h3>
+        <p>Smart virtual assistants available 24/7 for your users.</p>
+      </div>
+      <div class="card">
+        <h3>Data Analytics</h3>
+        <p>Transform raw data into actionable insights using AI.</p>
+      </div>
     </div>
-    {% endif %}
-</div>
+  </section>
+
+  <!-- Cloud Section -->
+  <section id="cloud">
+    <div class="section-title">Cloud Computing</div>
+    <div class="cards">
+      <div class="card">
+        <h3>Scalable Infrastructure</h3>
+        <p>Host your applications on the cloud and scale effortlessly.</p>
+      </div>
+      <div class="card">
+        <h3>Serverless Apps</h3>
+        <p>Deploy applications without worrying about servers.</p>
+      </div>
+      <div class="card">
+        <h3>Global Network</h3>
+        <p>Access services anywhere in the world with high speed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <div class="section-title">Our Services</div>
+    <div class="cards">
+      <div class="card">
+        <h3>AI Consulting</h3>
+        <p>Get expert guidance to implement AI in your business.</p>
+      </div>
+      <div class="card">
+        <h3>Cloud Migration</h3>
+        <p>Seamless migration of your existing apps to the cloud.</p>
+      </div>
+      <div class="card">
+        <h3>Automation</h3>
+        <p>Reduce manual work using AI-powered automation tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-title">Contact Us</div>
+    <p style="text-align:center;">Email: <a href="mailto:contact@aicloudhub.com">contact@aicloudhub.com</a> | Phone: +123 456 7890</p>
+    <div style="text-align:center; margin-top:20px;">
+      <a href="#" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 AI & Cloud Hub. Crafted with ❤️ for the future.
+  </footer>
+
+  <!-- JS for Animated Background -->
+  <script>
+    const canvas = document.getElementById('aiCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+
+    class Particle {
+      constructor(x, y, size, speedX, speedY){
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x > canvas.width) this.x = 0;
+        if(this.x < 0) this.x = canvas.width;
+        if(this.y > canvas.height) this.y = 0;
+        if(this.y < 0) this.y = canvas.height;
+      }
+      draw(){
+        ctx.fillStyle = '#00ffe0';
+        ctx.shadowColor = '#00ffe0';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles(){
+      particlesArray = [];
+      for(let i=0; i<150; i++){
+        let size = Math.random() * 2 + 1;
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let speedX = (Math.random() - 0.5) * 1.5;
+        let speedY = (Math.random() - 0.5) * 1.5;
+        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      }
+    }
+
+    function animate(){
+      ctx.fillStyle = 'rgba(15,12,41,0.2)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      for(let i=0; i<particlesArray.length; i++){
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', function(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
+
+    initParticles();
+    animate();
+  </script>
 </body>
 </html>
