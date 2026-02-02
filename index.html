@@ -3,239 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cyber Security | Secure Your Digital World</title>
+  <title>QuickBite – Food Delivery</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      background-color: #000;
-      color: #fff;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(90deg, #000, #0f2027, #203a43, #2c5364);
-      padding: 20px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header h1 {
-      color: #00ffcc;
-      font-size: 28px;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 25px;
-      font-size: 16px;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #00ffcc;
-    }
-
-    .hero {
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b') no-repeat center/cover;
-    }
-
-    .hero h2 {
-      font-size: 48px;
-      color: #00ffcc;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      max-width: 700px;
-      margin-bottom: 30px;
-    }
-
-    .hero button {
-      padding: 12px 30px;
-      background: #00ffcc;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      color: #000;
-      border-radius: 5px;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .hero button:hover {
-      transform: scale(1.05);
-      background: #00ccaa;
-    }
-
-    section {
-      padding: 80px 50px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .section-title h2 {
-      font-size: 36px;
-      color: #00ffcc;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      background: #111;
-      padding: 30px;
-      border-radius: 10px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
-    }
-
-    .card h3 {
-      color: #00ffcc;
-      margin-bottom: 15px;
-    }
-
-    .about {
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .contact {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .contact form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .contact input, .contact textarea {
-      margin-bottom: 15px;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-    }
-
-    .contact button {
-      padding: 12px;
-      background: #00ffcc;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      color: #000;
-      border-radius: 5px;
-    }
-
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
-    }
-
-    footer p {
-      font-size: 14px;
-      color: #aaa;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background: #f8f9fb; color: #333; }
+    header { background: #ff5a5f; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.5rem; }
+    nav a { color: white; margin-left: 1.5rem; text-decoration: none; font-weight: bold; }
+    .hero { padding: 3rem 2rem; text-align: center; background: linear-gradient(135deg, #ff5a5f, #ff9966); color: white; }
+    .hero h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .hero button { padding: 0.8rem 1.5rem; border: none; background: white; color: #ff5a5f; font-weight: bold; border-radius: 25px; cursor: pointer; }
+    .section-title { text-align: center; margin: 2.5rem 0 1rem; font-size: 1.8rem; }
+    .restaurants { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 0 2rem 2rem; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; transition: transform 0.2s ease; }
+    .card:hover { transform: translateY(-5px); }
+    .card img { width: 100%; height: 160px; object-fit: cover; }
+    .card-content { padding: 1rem; }
+    .card-content h3 { margin-bottom: 0.5rem; }
+    .card-content p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
+    .card-content button { background: #ff5a5f; color: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; }
+    .cart { position: fixed; right: 1rem; bottom: 1rem; background: #333; color: white; padding: 1rem 1.2rem; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    footer { text-align: center; padding: 1.5rem; background: #222; color: #aaa; margin-top: 2rem; font-size: 0.9rem; }
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>CyberSecure</h1>
+    <h1>🍔 QuickBite</h1>
     <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
+      <a href="#">Home</a>
+      <a href="#restaurants">Restaurants</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <div class="hero" id="home">
-    <h2>Protect Your Digital Life</h2>
-    <p>We provide advanced cyber security solutions to protect your data, systems, and networks from modern cyber threats.</p>
-    <button>Get Started</button>
-  </div>
+  <section class="hero">
+    <h2>Your Favorite Food, Delivered Fast</h2>
+    <p>Order from top restaurants near you anytime, anywhere</p>
+    <button onclick="scrollToRestaurants()">Order Now</button>
+  </section>
 
-  <section id="services">
-    <div class="section-title">
-      <h2>Our Services</h2>
+  <h2 class="section-title" id="restaurants">Popular Restaurants</h2>
+  <section class="restaurants">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="Burger" />
+      <div class="card-content">
+        <h3>Burger Hub</h3>
+        <p>Juicy burgers & crispy fries</p>
+        <button onclick="addToCart('Burger Hub')">Add to Cart</button>
+      </div>
     </div>
-    <div class="services">
-      <div class="card">
-        <h3>Network Security</h3>
-        <p>Protect your network infrastructure from unauthorized access, attacks, and data breaches.</p>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1548365328-8b849e59f6d8" alt="Pizza" />
+      <div class="card-content">
+        <h3>Pizza Point</h3>
+        <p>Hot & cheesy pizzas</p>
+        <button onclick="addToCart('Pizza Point')">Add to Cart</button>
       </div>
-      <div class="card">
-        <h3>Ethical Hacking</h3>
-        <p>Identify vulnerabilities in your system before hackers do with our ethical hacking services.</p>
-      </div>
-      <div class="card">
-        <h3>Data Protection</h3>
-        <p>Secure sensitive information using advanced encryption and data security techniques.</p>
-      </div>
-      <div class="card">
-        <h3>Cloud Security</h3>
-        <p>Ensure your cloud infrastructure is protected against cyber threats and data leaks.</p>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Biryani" />
+      <div class="card-content">
+        <h3>Biryani House</h3>
+        <p>Authentic spicy biryani</p>
+        <button onclick="addToCart('Biryani House')">Add to Cart</button>
       </div>
     </div>
   </section>
 
-  <section id="about">
-    <div class="section-title">
-      <h2>About Us</h2>
-    </div>
-    <div class="about">
-      <p>We are a team of cyber security experts dedicated to securing digital environments. Our mission is to protect businesses and individuals from cyber attacks by providing reliable and modern security solutions.</p>
-    </div>
-  </section>
+  <div class="cart" onclick="viewCart()">🛒 Cart (<span id="cart-count">0</span>)</div>
 
-  <section id="contact">
-    <div class="section-title">
-      <h2>Contact Us</h2>
-    </div>
-    <div class="contact">
-      <form>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 CyberSecure. All Rights Reserved.</p>
+  <footer id="contact">
+    © 2026 QuickBite. All rights reserved.
   </footer>
 
+  <script>
+    let cart = [];
+    function addToCart(item) {
+      cart.push(item);
+      document.getElementById('cart-count').innerText = cart.length;
+      alert(item + ' added to cart!');
+    }
+    function viewCart() {
+      if (cart.length === 0) alert('Your cart is empty');
+      else alert('Items in cart:\n' + cart.join('\n'));
+    }
+    function scrollToRestaurants() {
+      document.getElementById('restaurants').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
